@@ -16,8 +16,16 @@ func (g *Game) Setup(w engine.World) {
 		component.Velocity{},
 		component.Speed{},
 		component.Zoom{},
+		component.Sprite{},
+		component.Hue{},
 	)
 
-	w.AddSystems(system.NewCameraMovement())
-	w.AddEntities(&entity.Camera{})
+	w.AddSystems(
+		&system.CameraMovement{},
+		&system.Render{},
+	)
+	w.AddEntities(
+		&entity.Camera{},
+		&entity.Image{},
+	)
 }

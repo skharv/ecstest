@@ -7,10 +7,11 @@ import (
 	"github.com/sedyh/mizu/pkg/engine"
 )
 
-type CameraMovement struct{}
-
-func NewCameraMovement() *CameraMovement {
-	return &CameraMovement{}
+type CameraMovement struct {
+	*component.Position
+	*component.Velocity
+	*component.Speed
+	*component.Zoom
 }
 
 func (c *CameraMovement) Update(w engine.World) {
