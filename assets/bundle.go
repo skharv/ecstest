@@ -11,7 +11,8 @@ import (
 
 var (
 	Background = color.RGBA{R: 41, G: 44, B: 45, A: 255}
-	Bunny      = helper.Image(fs, "data/images/enchant-acid-1.png")
+	Acid       = helper.Image(fs, "data/images/enchant-acid-1.png")
+	Blob       = helper.Image(fs, "data/images/blob.png")
 )
 
 //go:embed "data"

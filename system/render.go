@@ -1,6 +1,7 @@
 package system
 
 import (
+	"skharv/ecstest/assets"
 	"skharv/ecstest/component"
 
 	"github.com/hajimehoshi/ebiten/v2"
@@ -8,17 +9,40 @@ import (
 )
 
 type Render struct {
-	*component.Position
-	*component.Sprite
-	*component.Hue
+	offscreen *ebiten.Image
 }
 
-func (r *Render) Draw(_ engine.World, screen *ebiten.Image) {
-	sw, sh := float64(screen.Bounds().Dx()), float64(screen.Bounds().Dy())
-	op := &ebiten.DrawImageOptions{}
-	op.GeoM.Translate(r.Position.X*sw, r.Position.Y*sh)
-	if *r.Hue.Colorful {
-		op.ColorM.RotateHue(r.Hue.Value)
+func NewRender() *Render {
+	return &Render{
+		offscreen: ebiten.NewImage(800, 600),
 	}
-	screen.DrawImage(r.Sprite.Image, op)
+}
+
+func (r *Render) Draw(w engine.World, screen *ebiten.Image) {
+	screen.Fill(assets.Background)
+
+	renders := w.View(
+		component.Position{},
+		component.Sprite{},
+		component.Hue{},
+	).Filter()
+
+	for _, e := range renders {
+		var pos *component.Position
+		var sprite *component.Sprite
+		var hue *component.Hue
+		e.Get(&pos, &sprite, &hue)
+
+		op := &ebiten.DrawImageOptions{}
+		op.GeoM.Translate(pos.X, pos.Y)
+		if hue.Colorful {
+			op.ColorM.RotateHue(hue.Value)
+		}
+		r.offscreen.DrawImage(sprite.Image, op)
+	}
+
+	op := &ebiten.DrawImageOptions{}
+	op.Filter = ebiten.FilterLinear
+	screen.DrawImage(r.offscreen, op)
+	r.offscreen.Clear()
 }
