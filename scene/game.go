@@ -58,7 +58,7 @@ func (g *Game) Setup(w engine.World) {
 			Size:     component.NewSizeI(1, 1),
 			Solid:    component.NewSolid(enum.CollisionGroupPlayer),
 			Sprite:   component.NewSprite(assets.Blob),
-			Gravity:  component.NewGravity(0),
+			Gravity:  component.NewGravity(10),
 			Control:  component.NewControl(2),
 			Hue:      component.NewHue(true, 600),
 		},
