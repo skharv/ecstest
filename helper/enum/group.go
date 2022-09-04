@@ -1,10 +1,9 @@
 package enum
 
-type CollisionGroup int
+type Group int
 
 const (
-	CollisionGroupNone = CollisionGroup(iota)
-	CollisionGroupPlayer
-	CollisionGroupTile
-	CollisionGroupCrate
+	GroupNone = Group(iota)
+	GroupUnit
+	GroupTile
 )

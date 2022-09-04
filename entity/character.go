@@ -6,7 +6,7 @@ type Character struct {
 	component.Position
 	component.Velocity
 	component.Size
-	component.Solid
+	component.Group
 	component.Sprite
 	component.Gravity
 	component.Control

@@ -3,6 +3,7 @@ package system
 import (
 	"skharv/ecstest/assets"
 	"skharv/ecstest/component"
+	"skharv/ecstest/helper"
 
 	"github.com/hajimehoshi/ebiten/v2"
 	"github.com/sedyh/mizu/pkg/engine"
@@ -14,7 +15,7 @@ type Render struct {
 
 func NewRender() *Render {
 	return &Render{
-		offscreen: ebiten.NewImage(800, 600),
+		offscreen: ebiten.NewImage(helper.ScreenWidth, helper.ScreenHeight),
 	}
 }
 

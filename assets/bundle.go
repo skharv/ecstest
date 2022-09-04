@@ -11,8 +11,10 @@ import (
 
 var (
 	Background = color.RGBA{R: 41, G: 44, B: 45, A: 255}
-	Acid       = helper.Image(fs, "data/images/enchant-acid-1.png")
-	Blob       = helper.Image(fs, "data/images/blob.png")
+	BlueUnit   = helper.Image(fs, "data/images/blueunit.png")
+	RedUnit    = helper.Image(fs, "data/images/redunit.png")
+	Tile       = helper.Image(fs, "data/images/tile.png")
+	Selection  = helper.Image(fs, "data/images/selection.png")
 )
 
 //go:embed "data"
