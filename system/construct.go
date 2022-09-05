@@ -38,6 +38,7 @@ func (c *Construct) Update(w engine.World) {
 				Sprite:   component.NewSprite(assets.Tile),
 				Group:    component.NewGroup(enum.GroupTile),
 				Size:     component.NewSizeI(64, 64),
+				Hide:     component.NewHide(false),
 				Hue:      component.NewHue(true, 0),
 			})
 		}

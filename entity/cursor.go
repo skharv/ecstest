@@ -7,5 +7,6 @@ type Cursor struct {
 	component.Render
 	component.Sprite
 	component.Mouse
+	component.Hide
 	component.Hue
 }

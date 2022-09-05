@@ -19,6 +19,7 @@ func (g *Game) Setup(w engine.World) {
 		component.Speed{},
 		component.Sprite{},
 		component.Mouse{},
+		component.Hide{},
 		component.Hue{},
 		component.Size{},
 		component.Group{},
@@ -42,6 +43,7 @@ func (g *Game) Setup(w engine.World) {
 			Render:   component.NewRender(20),
 			Sprite:   component.NewSprite(assets.Selection),
 			Mouse:    component.NewMouse(),
+			Hide:     component.NewHide(false),
 			Hue:      component.NewHue(true, 1),
 		},
 	)

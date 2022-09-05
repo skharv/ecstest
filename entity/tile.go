@@ -10,5 +10,6 @@ type Tile struct {
 	component.Sprite
 	component.Group
 	component.Size
+	component.Hide
 	component.Hue
 }

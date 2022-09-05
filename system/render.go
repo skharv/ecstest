@@ -29,6 +29,7 @@ func (r *Render) Draw(w engine.World, screen *ebiten.Image) {
 		component.Position{},
 		component.Render{},
 		component.Sprite{},
+		component.Hide{},
 		component.Hue{},
 	).Filter()
 
@@ -36,15 +37,18 @@ func (r *Render) Draw(w engine.World, screen *ebiten.Image) {
 		var pos *component.Position
 		var ren *component.Render
 		var spr *component.Sprite
+		var hid *component.Hide
 		var hue *component.Hue
-		e.Get(&pos, &ren, &spr, &hue)
+		e.Get(&pos, &ren, &spr, &hid, &hue)
 
 		op := &ebiten.DrawImageOptions{}
 		op.GeoM.Translate(pos.X, pos.Y)
 		if hue.Colorful {
 			op.ColorM.RotateHue(hue.Value)
 		}
-		r.offscreen[ren.Value].DrawImage(spr.Image, op)
+		if !hid.Value {
+			r.offscreen[ren.Value].DrawImage(spr.Image, op)
+		}
 	}
 
 	op := &ebiten.DrawImageOptions{}

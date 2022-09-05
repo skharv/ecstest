@@ -9,8 +9,9 @@ import (
 )
 
 type Highlight struct {
-	*component.Mouse
 	*component.Position
+	*component.Mouse
+	*component.Hide
 }
 
 func NewHighlight() *Highlight {
@@ -23,6 +24,8 @@ func (h *Highlight) Update(w engine.World) {
 		component.Group{},
 		component.Size{},
 	).Filter()
+
+	show := false
 
 	for _, t := range tiles {
 		var pos *component.Position
@@ -40,7 +43,10 @@ func (h *Highlight) Update(w engine.World) {
 			if float64(y) > pos.Y && float64(y) < pos.Y+siz.H {
 				h.Position.X = pos.X
 				h.Position.Y = pos.Y
+				show = true
 			}
 		}
 	}
+
+	h.Hide.Value = !show
 }
