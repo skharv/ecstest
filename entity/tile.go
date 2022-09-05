@@ -6,6 +6,7 @@ import (
 
 type Tile struct {
 	component.Position
+	component.Render
 	component.Sprite
 	component.Group
 	component.Size

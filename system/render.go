@@ -10,13 +10,16 @@ import (
 )
 
 type Render struct {
-	offscreen *ebiten.Image
+	offscreen []*ebiten.Image
 }
 
 func NewRender() *Render {
-	return &Render{
-		offscreen: ebiten.NewImage(helper.ScreenWidth, helper.ScreenHeight),
+	r := Render{}
+	for i := 0; i < helper.RenderLayers; i++ {
+		r.offscreen = append(r.offscreen, ebiten.NewImage(helper.ScreenWidth, helper.ScreenHeight))
 	}
+
+	return &r
 }
 
 func (r *Render) Draw(w engine.World, screen *ebiten.Image) {
@@ -24,26 +27,30 @@ func (r *Render) Draw(w engine.World, screen *ebiten.Image) {
 
 	renders := w.View(
 		component.Position{},
+		component.Render{},
 		component.Sprite{},
 		component.Hue{},
 	).Filter()
 
 	for _, e := range renders {
 		var pos *component.Position
-		var sprite *component.Sprite
+		var ren *component.Render
+		var spr *component.Sprite
 		var hue *component.Hue
-		e.Get(&pos, &sprite, &hue)
+		e.Get(&pos, &ren, &spr, &hue)
 
 		op := &ebiten.DrawImageOptions{}
 		op.GeoM.Translate(pos.X, pos.Y)
 		if hue.Colorful {
 			op.ColorM.RotateHue(hue.Value)
 		}
-		r.offscreen.DrawImage(sprite.Image, op)
+		r.offscreen[ren.Value].DrawImage(spr.Image, op)
 	}
 
 	op := &ebiten.DrawImageOptions{}
 	op.Filter = ebiten.FilterLinear
-	screen.DrawImage(r.offscreen, op)
-	r.offscreen.Clear()
+	for i := 0; i < helper.RenderLayers; i++ {
+		screen.DrawImage(r.offscreen[i], op)
+		r.offscreen[i].Clear()
+	}
 }

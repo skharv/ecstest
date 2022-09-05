@@ -34,6 +34,7 @@ func (c *Construct) Update(w engine.World) {
 		for j := 0; j < construct.Height; j++ {
 			w.AddEntities(&entity.Tile{
 				Position: component.NewPositionI((64*i)+XOffset, (64*j)+YOffset),
+				Render:   component.NewRender(10),
 				Sprite:   component.NewSprite(assets.Tile),
 				Group:    component.NewGroup(enum.GroupTile),
 				Size:     component.NewSizeI(64, 64),
