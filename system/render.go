@@ -4,6 +4,7 @@ import (
 	"skharv/ecstest/assets"
 	"skharv/ecstest/component"
 	"skharv/ecstest/helper"
+	"sort"
 
 	"github.com/hajimehoshi/ebiten/v2"
 	"github.com/sedyh/mizu/pkg/engine"
@@ -33,6 +34,8 @@ func (r *Render) Draw(w engine.World, screen *ebiten.Image) {
 		component.Hue{},
 	).Filter()
 
+	var populatedLayers []int
+
 	for _, e := range renders {
 		var pos *component.Position
 		var ren *component.Render
@@ -47,14 +50,29 @@ func (r *Render) Draw(w engine.World, screen *ebiten.Image) {
 			op.ColorM.RotateHue(hue.Value)
 		}
 		if !hid.Value {
+			layerFound := false
+
+			for _, layer := range populatedLayers {
+				if layer == ren.Value {
+					layerFound = true
+				}
+			}
+			if !layerFound {
+				populatedLayers = append(populatedLayers, ren.Value)
+			}
+
 			r.offscreen[ren.Value].DrawImage(spr.Image, op)
 		}
 	}
 
+	sort.Slice(populatedLayers, func(i, j int) bool {
+		return populatedLayers[i] < populatedLayers[j]
+	})
+
 	op := &ebiten.DrawImageOptions{}
 	op.Filter = ebiten.FilterLinear
-	for i := 0; i < helper.RenderLayers; i++ {
-		screen.DrawImage(r.offscreen[i], op)
-		r.offscreen[i].Clear()
+	for _, v := range populatedLayers {
+		screen.DrawImage(r.offscreen[v], op)
+		r.offscreen[v].Clear()
 	}
 }

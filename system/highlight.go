@@ -25,7 +25,7 @@ func (h *Highlight) Update(w engine.World) {
 		component.Size{},
 	).Filter()
 
-	show := false
+	hide := true
 
 	for _, t := range tiles {
 		var pos *component.Position
@@ -43,10 +43,10 @@ func (h *Highlight) Update(w engine.World) {
 			if float64(y) > pos.Y && float64(y) < pos.Y+siz.H {
 				h.Position.X = pos.X
 				h.Position.Y = pos.Y
-				show = true
+				hide = false
 			}
 		}
 	}
 
-	h.Hide.Value = !show
+	h.Hide.Value = hide
 }

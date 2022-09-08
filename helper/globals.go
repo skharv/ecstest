@@ -3,5 +3,5 @@ package helper
 const (
 	ScreenWidth  = 1024
 	ScreenHeight = 768
-	RenderLayers = 30
+	RenderLayers = 100
 )
