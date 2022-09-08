@@ -12,6 +12,7 @@ type Highlight struct {
 	*component.Position
 	*component.Mouse
 	*component.Hide
+	*component.Hue
 }
 
 func NewHighlight() *Highlight {
@@ -49,4 +50,11 @@ func (h *Highlight) Update(w engine.World) {
 	}
 
 	h.Hide.Value = hide
+	h.Hue.Value = 0
+	if ebiten.IsMouseButtonPressed(ebiten.MouseButtonLeft) {
+		h.Hue.Value += 1
+	}
+	if ebiten.IsMouseButtonPressed(ebiten.MouseButtonRight) {
+		h.Hue.Value -= 1
+	}
 }
