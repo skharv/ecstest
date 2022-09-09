@@ -5,7 +5,7 @@ import (
 	"math/rand"
 	"time"
 
-	"skharv/ecstest/helper"
+	"skharv/ecstest/helper/globals"
 	"skharv/ecstest/scene"
 
 	"github.com/hajimehoshi/ebiten/v2"
@@ -13,7 +13,7 @@ import (
 )
 
 func main() {
-	ebiten.SetWindowSize(helper.ScreenWidth, helper.ScreenHeight)
+	ebiten.SetWindowSize(globals.ScreenWidth, globals.ScreenHeight)
 	ebiten.SetFPSMode(ebiten.FPSModeVsyncOffMaximum)
 	rand.Seed(time.Now().UTC().UnixNano())
 	if err := ebiten.RunGame(engine.NewGame(&scene.Game{})); err != nil {

@@ -4,8 +4,8 @@ import (
 	"skharv/ecstest/assets"
 	"skharv/ecstest/component"
 	"skharv/ecstest/entity"
-	"skharv/ecstest/helper"
 	"skharv/ecstest/helper/enum"
+	"skharv/ecstest/helper/globals"
 
 	"github.com/sedyh/mizu/pkg/engine"
 )
@@ -27,8 +27,8 @@ func (c *Construct) Update(w engine.World) {
 
 	constructEntity.Get(&construct)
 
-	XOffset := (helper.ScreenWidth - (construct.Width * 64)) / 2
-	YOffset := (helper.ScreenHeight - (construct.Height * 64)) / 2
+	XOffset := (globals.ScreenWidth - (construct.Width * 64)) / 2
+	YOffset := (globals.ScreenHeight - (construct.Height * 64)) / 2
 
 	for i := 0; i < construct.Width; i++ {
 		for j := 0; j < construct.Height; j++ {

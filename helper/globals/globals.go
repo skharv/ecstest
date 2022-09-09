@@ -1,4 +1,4 @@
-package helper
+package globals
 
 const (
 	ScreenWidth  = 1024

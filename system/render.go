@@ -3,7 +3,7 @@ package system
 import (
 	"skharv/ecstest/assets"
 	"skharv/ecstest/component"
-	"skharv/ecstest/helper"
+	"skharv/ecstest/helper/globals"
 	"sort"
 
 	"github.com/hajimehoshi/ebiten/v2"
@@ -16,8 +16,8 @@ type Render struct {
 
 func NewRender() *Render {
 	r := Render{}
-	for i := 0; i < helper.RenderLayers; i++ {
-		r.offscreen = append(r.offscreen, ebiten.NewImage(helper.ScreenWidth, helper.ScreenHeight))
+	for i := 0; i < globals.RenderLayers; i++ {
+		r.offscreen = append(r.offscreen, ebiten.NewImage(globals.ScreenWidth, globals.ScreenHeight))
 	}
 
 	return &r

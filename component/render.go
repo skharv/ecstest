@@ -1,6 +1,6 @@
 package component
 
-import "skharv/ecstest/helper"
+import "skharv/ecstest/helper/globals"
 
 type Render struct {
 	Value int
@@ -9,8 +9,8 @@ type Render struct {
 func NewRender(value int) Render {
 	if value < 0 {
 		value = 0
-	} else if value > helper.RenderLayers {
-		value = helper.RenderLayers
+	} else if value > globals.RenderLayers {
+		value = globals.RenderLayers
 	}
 	return Render{Value: value}
 }
